@@ -23,9 +23,7 @@ function App() {
 
   const [data, setData] = useState(
     [
-      { /*col1: '9', col2: '17', col3: '19', col4: '26', col5: '39', col6: '4', col7: '10' },
-      { col1: '9', col2: '17', col3: '19', col4: '26', col5: '39', col6: '4', col7: '10' },
-      { col1: '9', col2: '17', col3: '19', col4: '26', col5: '39', col6: '4', col7: '10' */},
+      {},
     ]
   );
   function formatDate(dateString) {
