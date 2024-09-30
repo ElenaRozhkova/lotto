@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ElenaRozhkova/lotto/static/css/main.95bcabb8.css",
+    "main.js": "/ElenaRozhkova/lotto/static/js/main.7c6a429f.js",
+    "index.html": "/ElenaRozhkova/lotto/index.html",
+    "main.95bcabb8.css.map": "/ElenaRozhkova/lotto/static/css/main.95bcabb8.css.map",
+    "main.7c6a429f.js.map": "/ElenaRozhkova/lotto/static/js/main.7c6a429f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.95bcabb8.css",
+    "static/js/main.7c6a429f.js"
+  ]
+}
