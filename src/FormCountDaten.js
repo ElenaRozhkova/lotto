@@ -1,19 +1,19 @@
 import React from 'react';
 
-export const FormCountDaten = ({ anzahl, setAnzahl }) => {
+export const FormCountDaten = ({ anzahlFehler, setAnzahlFehler }) => {
 
 
     const handleChange = (event) => {
-        setAnzahl(event.target.value);
+        setAnzahlFehler(event.target.value);
     };
     return (
         <>
             <form style={{ paddingBottom: '20px' }}>
-                <label style={{ marginRight: '20px' }} htmlFor="numberInput">Datenanzahl: </label>
+                <label style={{ marginRight: '20px' }} htmlFor="numberInput"> Rows Count</label>
                 <input
                     id="numberInput"
                     type="number"
-                    value={anzahl}
+                    value={anzahlFehler}
                     onChange={handleChange}
                     required
                 />

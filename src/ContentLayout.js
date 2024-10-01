@@ -6,7 +6,6 @@ export const ContentLayout = (props) => {
 
     return (
         <>
-
             <div className='content'>
                 <ContentTitle img={props.img} text={props.text} />
                 {props.children}
