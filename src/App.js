@@ -11,8 +11,6 @@ function App() {
       <Header />
       <TabContainer />
       <div className='newZahlen'>
-
-
       </div>
     </div>
   );
