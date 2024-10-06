@@ -15,6 +15,7 @@ export const insertApi = (data) => {
             return response.json();
         })
         .then(result => {
+            allSelectApi(result)
         })
         .catch(error => {
         });
