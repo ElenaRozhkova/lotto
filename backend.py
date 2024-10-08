@@ -116,8 +116,8 @@ def get_dates():
 
 
 
-@app.route('/get_number/<date>', methods=['GET'])
-def get_number(date):
+@app.route('/get_number_hystory/<date>', methods=['GET'])
+def get_number_hystory(date):
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -144,6 +144,36 @@ def get_number(date):
     finally:
         cursor.close()
         conn.close()
+
+
+@app.route('/get_number_suggest/<date>', methods=['GET'])
+def get_number_suggest(date):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        date = re.sub(r'^undefined-undefined-', '', date)
+        datetime.strptime(date, '%Y-%m-%d')
+        query = """
+        SELECT 1stNum, 2ndNum, 3rdNum, 4thNum, 5thNum, 6thNum, 7thNum, timeStamp
+        FROM lastplayednumbers 
+        WHERE timeStamp = %s
+        """
+        cursor.execute(query, (date,))
+        result = cursor.fetchall()
+        
+        # Formatieren Sie das Ergebnis
+        formatted_result = []
+        for row in result:
+            formatted_row = list(row[:])  # Alle Elemente außer dem letzten (Paydate)
+            formatted_result.append(formatted_row)
+        
+        return jsonify({"output": formatted_result}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()        
 
         
 if __name__ == '__main__':

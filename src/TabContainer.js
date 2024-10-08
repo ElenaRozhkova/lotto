@@ -5,7 +5,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { calculateFehler, calculateMaxValues, calculateMinValues } from './calculateFehler'
 import { ContentLayout } from './ContentLayout'
 import { formatDate, transformData } from './constants/transformdata'
-import { insertApi, allSelectApi, selectAllSelectedDatumApi } from './constants/api'
+import { insertApi, allSelectApi, selectRowsFromDatumHistory, selectRowsFromDatumSuggest } from './constants/api'
 import DateDropdown from './DateDropdown'
 
 export const TabContainer = () => {
@@ -30,7 +30,11 @@ export const TabContainer = () => {
     const [selectedDate, setSelectedDate] = useState('');
     // const [data, setData] = useState([{},]);
     const [dataPrognose, setdataPrognose] = useState([]);
-    const [dataSoll, setDataSoll] = useState([
+    const [dataSollHistory, setDataSollHistory] = useState([
+        { col1: '', col2: '', col3: '', col4: '', col5: '', col6: '', col7: '' },
+    ]);
+
+    const [dataSollSuggest, setDataSollSuggest] = useState([
         { col1: '', col2: '', col3: '', col4: '', col5: '', col6: '', col7: '' },
     ]);
 
@@ -94,7 +98,11 @@ export const TabContainer = () => {
 
 
     const viewHistoryDate = (selectedDate) => {
-        selectAllSelectedDatumApi(selectedDate, setDataSoll);
+        selectRowsFromDatumHistory(selectedDate, setDataSollHistory);
+        selectRowsFromDatumSuggest(selectedDate, setDataSollSuggest);
+        setTableFehler([]);
+        setMaxD('');
+        setMinD('');
     };
 
     const renderContent = () => {
@@ -123,15 +131,16 @@ export const TabContainer = () => {
                                     setSelectedDate={setSelectedDate}
                                     viewHistoryDate={viewHistoryDate} ></DateDropdown>
                                 <h4>History</h4>
-                                <Table columns={columnsOhneDate} data={dataSoll} message={setMessageError} />
-                                <h4>Suggest</h4>
-                                <FormCountDaten anzahlFehler={anzahlFehler} setAnzahlFehler={setAnzahlFehler} />
+                                <Table columns={columnsOhneDate} data={dataSollHistory} message={setMessageError} />
+
+                                {/* <FormCountDaten anzahlFehler={anzahlFehler} setAnzahlFehler={setAnzahlFehler} />*/}
                                 <button
                                     style={btnNew}
                                     onMouseEnter={() => setIsHovered(true)}
                                     onMouseLeave={() => setIsHovered(false)}
                                     onClick={() => {
-                                        const newTableFehler = calculateFehler(dataPrognose, dataSoll);
+                                        const newTableFehler = calculateFehler(dataSollSuggest, dataSollHistory);
+
                                         setTableFehler(newTableFehler);
                                         setMaxD(calculateMaxValues(newTableFehler));
                                         setMinD(calculateMinValues(newTableFehler));
@@ -139,8 +148,9 @@ export const TabContainer = () => {
                                 >
                                     calculate error
                                 </button>
+                                <h4>Suggest</h4>
                                 <div className='tablepr_left'>
-                                    <Table columns={columnsOhneDate} data={dataPrognose} message={setMessageError} />
+                                    <Table columns={columnsOhneDate} data={dataSollSuggest} message={setMessageError} />
                                 </div>
 
                             </div>

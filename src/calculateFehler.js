@@ -1,10 +1,11 @@
 
 export const calculateFehler = (newData, sollData) => {
+    console.log("calculateFehler");
     const newDataFehler = newData.map((item) => ({
         col1: calculateDispersion1(item, sollData),
         col2: calculateDispersion2(item, sollData)
     }));
-
+    console.log("newTableFehler" + newDataFehler);
     return newDataFehler;
 };
 

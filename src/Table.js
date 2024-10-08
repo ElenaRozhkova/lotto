@@ -3,8 +3,6 @@ import { useTable } from 'react-table'
 
 export const Table = ({ columns, data: initialData, message }) => {
 
-    console.log("table");
-    console.log(initialData);
     const [data, setData] = useState(initialData);
     const [editingCell, setEditingCell] = useState(null);
     const inputRef = useRef(null);
