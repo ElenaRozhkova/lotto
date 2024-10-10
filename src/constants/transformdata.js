@@ -25,3 +25,13 @@ export const transformData = (inputArray) => {
         col8: formatDate(subArray[7])
     }));
 };
+
+
+
+
+export const transformDatum = (inputArray) => {
+    return inputArray.map(dateString => {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    });
+}

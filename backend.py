@@ -51,7 +51,7 @@ def insert_numbers():
 
         # SQL-запрос для вставки данных
         insert_query = '''
-        INSERT INTO numberlena (oneOf5, twoOf5, threeOf5, fourOf5, fiveOf5, oneOf2, twoOf2, paydate)
+        INSERT INTO numbers (oneOf5, twoOf5, threeOf5, fourOf5, fiveOf5, oneOf2, twoOf2, paydate)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         '''
         
@@ -80,7 +80,7 @@ def get_numbers():
     cursor = conn.cursor()
     
     try:
-        query = "SELECT oneOf5, twoOf5, threeOf5, fourOf5, fiveOf5, oneOf2, twoOf2, Paydate FROM numberlena ORDER BY Paydate DESC"
+        query = "SELECT oneOf5, twoOf5, threeOf5, fourOf5, fiveOf5, oneOf2, twoOf2, Paydate FROM numbers ORDER BY Paydate DESC"
         cursor.execute(query)
         result = cursor.fetchall()
         
@@ -103,10 +103,13 @@ def get_dates():
     cursor = conn.cursor(dictionary=True)
     
     try:
-        query = "SELECT DISTINCT Paydate FROM numberlena ORDER BY Paydate DESC"
+       # query = "SELECT DISTINCT Paydate FROM numbers ORDER BY Paydate DESC"
+        query = "SELECT DISTINCT timeStamp FROM lastplayednumbers ORDER BY timeStamp DESC"
+       
         cursor.execute(query)
         result = cursor.fetchall()
-        dates = [row['Paydate'] for row in result]
+        #dates = [row['Paydate'] for row in result]
+        dates = [row['timeStamp'] for row in result]
         return jsonify({"output": dates}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -126,7 +129,7 @@ def get_number_hystory(date):
         datetime.strptime(date, '%Y-%m-%d')
         query = """
         SELECT oneOf5, twoOf5, threeOf5, fourOf5, fiveOf5, oneOf2, twoOf2, Paydate
-        FROM numberlena 
+        FROM numbers 
         WHERE Paydate = %s
         """
         cursor.execute(query, (date,))

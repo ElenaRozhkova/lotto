@@ -7,6 +7,10 @@ import { ContentLayout } from './ContentLayout'
 import { formatDate, transformData } from './constants/transformdata'
 import { insertApi, allSelectApi, selectRowsFromDatumHistory, selectRowsFromDatumSuggest } from './constants/api'
 import DateDropdown from './DateDropdown'
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const TabContainer = () => {
     const [activeTab, setActiveTab] = useState('tab1');
@@ -141,9 +145,23 @@ export const TabContainer = () => {
                                     onClick={() => {
                                         const newTableFehler = calculateFehler(dataSollSuggest, dataSollHistory);
 
-                                        setTableFehler(newTableFehler);
-                                        setMaxD(calculateMaxValues(newTableFehler));
-                                        setMinD(calculateMinValues(newTableFehler));
+
+                                        if (newTableFehler) {
+                                            setTableFehler(newTableFehler);
+                                            setMaxD(calculateMaxValues(newTableFehler));
+                                            setMinD(calculateMinValues(newTableFehler));
+                                            toast.success("Success Notification !", {
+                                                position: "bottom-right",
+                                            });
+                                        }
+                                        else {
+                                            <ToastContainer />
+
+                                            toast.error("History table is null !", {
+                                                position: "bottom-right",
+                                            });
+                                        }
+
                                     }}
                                 >
                                     calculate error

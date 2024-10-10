@@ -2,6 +2,8 @@ import './App.css';
 import React from 'react';
 import { Header } from './Header';
 import { TabContainer } from './TabContainer';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -12,6 +14,7 @@ function App() {
       <TabContainer />
       <div className='newZahlen'>
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { formatDateToDB, transformData } from "./transformdata";
+import { formatDateToDB, transformData, transformDatum } from "./transformdata";
 
 export const insertApi = (data) => {
     fetch('http://192.168.0.158:80/insert_numbers', {
@@ -47,7 +47,9 @@ export const selectDatesApi = (setDates) => {
             return response.json();
         })
         .then(data => {
-            setDates(data.output);
+            console.log(data.output)
+            const transformedData = transformDatum(data.output);
+            setDates(transformedData);
         })
         .catch(error => {
             console.error("Произошла ошибка при запросе:", error);
